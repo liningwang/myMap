@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+td {padding:3px; background:#fff}
+#container {border-style: solid;border-width:1px;padding-left:0px;padding-right:0px;height:240px}
+#kuang {float:left;}
+#con {float:left;width:50%;margin-top:8px;}
+.doTest {margin-top:20px;margin-left:8px;width:100px;height:40px;background:#66CCFF;}
+.doTest1 {margin-top:20px;margin-left:8px;width:100px;height:40px;background:#66CCFF;}
+textarea#result {width:30%; height:100px; background:#ffffe0;margin-left:0px;}
+textarea#result1 {width:30%; height:100px; background:#ffffe0;margin-left:0px;}
+#header {background:#73BF00;border-bottom-style:solid;border-width:1px;padding-top:8px;border-bottom-color:#000;padding-bottom:8px;padding-left:8px;color:#fff;}
+#theader {background:#73BF00;border-bottom-style:solid;border-width:1px;padding-top:8px;border-bottom-color:#000;padding-bottom:8px;padding-left:8px;color:#fff;}
+</style>
+</head>
+<script type='text/javascript' src='/js/jquery.js'></script>
+<script type='text/javascript' src='/js/app.util.js'></script>
+<script type="text/javascript"> 
+$(document).ready(function()
+{
+var header={};
+$('.doTest').click(function(){ alert("wang");apiTest(header)});
+var header1={};
+$('.doTest1').click(function(){apiTest1(header1)});
+});
+function apiTest () {
+	var headers = arguments[0] || {};
+	var action = $('#action').val();
+	//alert(action);
+	var method = $('#method').val();
+	var keys = new Array();
+	var vals = new Array();
+	var data = '';
+	$('input[name=paramKey]').each(function(){
+		var key = $.trim($(this).val());
+		keys.push(encodeURIComponent(key));
+	});
+	$('input[name=paramVal]').each(function(){
+		var val = $.trim($(this).val());
+		vals.push(encodeURIComponent(val));
+	});
+	for(var i=0; i<keys.length; i++){
+		data += keys[i] + '=' + vals[i] + '&';
+	}
+	$.ajax({
+		'headers' : headers,
+		'type' : method,
+		'url' : action,
+		'data' : data,
+		'success' : function(msg){
+			$('#result').val(formatJson(msg));
+		}	
+	});
+}
+function apiTest1 () {
+	var headers = arguments[0] || {};
+	var action = $('#action1').val();
+	//alert(action);
+	var method = $('#method1').val();
+	var keys = new Array();
+	var vals = new Array();
+	var data = '';
+	$('input[name=paramKey1]').each(function(){
+		var key = $.trim($(this).val());
+		keys.push(encodeURIComponent(key));
+	});
+	$('input[name=paramVal1]').each(function(){
+		var val = $.trim($(this).val());
+		vals.push(encodeURIComponent(val));
+	});
+	for(var i=0; i<keys.length; i++){
+		data += keys[i] + '=' + vals[i] + '&';
+	}
+	$.ajax({
+		'headers' : headers,
+		'type' : method,
+		'url' : action,
+		'data' : data,
+		'success' : function(msg){
+			$('#result1').val(formatJson(msg));
+		}	
+	});
+}
+</script>
+<body>
+<input type='hidden' id='action' value='http://127.0.0.1:8003/comment/commentCreate'/>
+<input type='hidden' id='method' value='post'/>
+<div id="container">
+<div id="header">
+add Comment
+</div>
+<div id="kuang">
+<table>
+  <tr><td colspan=2>KEY : <input type='text' name='paramKey' value='cameraId'/> VALUE : <input type='text' name='paramVal' style='width:300px' value='0'/> (INT) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey' value='customerId'/> VALUE : <input type='text' name='paramVal' style='width:300px' value='0'/> (INT) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey' value='content'/> VALUE : <input type='text' name='paramVal' style='width:300px' value=''''/> (STRING) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey' value='name'/> VALUE : <input type='text' name='paramVal' style='width:300px' value=''''/> (STRING) </td></tr>
+</table>
+<div style="text-align:center;">
+<input type='button' class='doTest' value='submit' onclick="submitComment()"/>
+</div>
+</div>
+<div id="con">
+<textarea id='result'>hahah</textarea>
+</div>
+</div>
+
+<hr style=" height:2px;border:none;border-top:2px dotted #185598;margin-top:80px;" />
+
+<input type='hidden' id='action1' value='http://127.0.0.1:8003/customer/customerCreate'/>
+<input type='hidden' id='method1' value='post'/>
+<table border="0" style="border-style:solid;border-width:1px;margin-top:80px;width:100%" cellpadding=0 cellspacing=0>
+<tr>
+<td id="theader" colspan="2">
+add Customer
+</td>
+</tr>
+<tr>
+<td sytle="width:40%">
+<table>
+  <tr><td>KEY : <input type='text' name='paramKey1' value='name'/> VALUE : <input type='text' name='paramVal1' style='width:300px' value=''''/> (STRING) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey1' value='pass'/> VALUE : <input type='text' name='paramVal1' style='width:300px' value=''''/> (STRING) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey1' value='sign'/> VALUE : <input type='text' name='paramVal1' style='width:300px' value=''''/> (STRING) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey1' value='qq'/> VALUE : <input type='text' name='paramVal1' style='width:300px' value='0'/> (STRING) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey1' value='email'/> VALUE : <input type='text' name='paramVal1' style='width:300px' value=''''/> (STRING) </td></tr>
+</table>
+</td>
+<td style="width:50%">
+<textarea id='result1'>hahah</textarea>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<input type='button' class='doTest1' value='submit'/>
+</td>
+</tr>
+</table>
+</body>
+</html>

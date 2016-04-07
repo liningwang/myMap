@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#newhr {height:2px;border:none;border-top:2px dotted #185598;margin-top:15px;}
+</style>
+</head> 
+<script type='text/javascript' src='jquery.js'></script>
+<script type="text/javascript"> 
+var comment;
+var comArray;
+function addItem(data,content){
+var list = document.getElementById("list");
+var li = document.createElement("li");
+var textarea = document.createElement("textarea");
+var hr = document.createElement("hr");
+//　　li.setAttribute("id", "newli");
+hr.setAttribute("id", "newhr");
+li.innerHTML = data;
+textarea.innerHTML = content;
+li.style.padding = "5px";
+textarea.style.width = "100%";
+textarea.style.background = "#ffffe0";
+//hr.style.height = "2px";
+//hr.style.border = "none";
+//hr.style.border-top = "2px";
+//hr.style.border-top = "dotted";
+//hr.style.border-top = "#185598";
+//hr.style.margin-top = "8px";
+li.appendChild(textarea);
+li.appendChild(hr);
+list.appendChild(li);
+}
+$(document).ready(function()
+{
+var header={};
+$('.doTest').click(function(){apiTest(header)});
+});
+function apiTest () {
+	var headers = arguments[0] || {};
+	var action = "http://127.0.0.1:8003/comment/commentList";
+	var value = $('input[name=paramKey]').val();
+	var data = "cameraId="+value;
+	alert(data);
+	$.ajax({
+		'headers' : headers,
+		'type' : "get",
+		'url' : action,
+		'data': data,
+		'success' : function(msg){
+			comment = eval("(" + msg + ")");
+			comArray= comment["result"]["Comment.list"];
+			for(var x in comArray)
+			{
+				//alert(comArray[x]);
+				var data = "id: " + comArray[x]["id"] + " cameraid: " + comArray[x]["cameraid"] + " customerid: \
+				" + comArray[x]["customerid"] + " name: " + comArray[x]["name"] + " replycount: " + comArray[x]["replycount"] + " uptime: \
+				" + comArray[x]["uptime"] ;
+				addItem(data,comArray[x]["content"]);
+			}
+		}	
+	});
+};
+</script>
+<div>
+cameraId: <input type='text' name='paramKey'/>
+<input type='button' class='doTest' value='submit'/>
+</div>
+<hr style="height:5px;border:none;border-top:5px ridge green;" />
+<ul id="list" style="list-style-type:none;padding:0px;margin:0px;">
+</ul>
+</html>
