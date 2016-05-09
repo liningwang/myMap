@@ -4,6 +4,7 @@
 <style>
 td {padding:3px; background:#fff}
 #container {border-style: solid;border-width:1px;padding-left:0px;padding-right:0px;height:240px}
+#container1 {border-style: solid;border-width:1px;padding-left:0px;padding-right:0px;height:90px}
 #kuang {float:left;}
 #con {float:left;width:50%;margin-top:8px;}
 .doTest {margin-top:20px;margin-left:8px;width:100px;height:40px;background:#66CCFF;}
@@ -23,6 +24,10 @@ var header={};
 $('.doTest').click(function(){ alert("wang");apiTest(header)});
 var header1={};
 $('.doTest1').click(function(){apiTest1(header1)});
+var header2={};
+$('.doTest2').click(function(){apiTest2(header2)});
+var header3={};
+$('.doTest3').click(function(){apiTest3(header3)});
 });
 function apiTest () {
 	var headers = arguments[0] || {};
@@ -82,6 +87,64 @@ function apiTest1 () {
 		}	
 	});
 }
+function apiTest2 () {
+	var headers = arguments[0] || {};
+	var action = $('#action2').val();
+	//alert(action);
+	var method = $('#method2').val();
+	var keys = new Array();
+	var vals = new Array();
+	var data = '';
+	$('input[name=paramKey2]').each(function(){
+		var key = $.trim($(this).val());
+		keys.push(encodeURIComponent(key));
+	});
+	$('input[name=paramVal2]').each(function(){
+		var val = $.trim($(this).val());
+		vals.push(encodeURIComponent(val));
+	});
+	for(var i=0; i<keys.length; i++){
+		data += keys[i] + '=' + vals[i] + '&';
+	}
+	$.ajax({
+		'headers' : headers,
+		'type' : method,
+		'url' : action,
+		'data' : data,
+		'success' : function(msg){
+			$('#result2').val(formatJson(msg));
+		}	
+	});
+}
+function apiTest3 () {
+	var headers = arguments[0] || {};
+	var action = $('#action3').val();
+	//alert(action);
+	var method = $('#method3').val();
+	var keys = new Array();
+	var vals = new Array();
+	var data = '';
+	$('input[name=paramKey3]').each(function(){
+		var key = $.trim($(this).val());
+		keys.push(encodeURIComponent(key));
+	});
+	$('input[name=paramVal3]').each(function(){
+		var val = $.trim($(this).val());
+		vals.push(encodeURIComponent(val));
+	});
+	for(var i=0; i<keys.length; i++){
+		data += keys[i] + '=' + vals[i] + '&';
+	}
+	$.ajax({
+		'headers' : headers,
+		'type' : method,
+		'url' : action,
+		'data' : data,
+		'success' : function(msg){
+			$('#result3').val(formatJson(msg));
+		}	
+	});
+}
 </script>
 <body>
 <input type='hidden' id='action' value='http://127.0.0.1:8003/comment/commentCreate'/>
@@ -96,6 +159,7 @@ add Comment
   <tr><td>KEY : <input type='text' name='paramKey' value='customerId'/> VALUE : <input type='text' name='paramVal' style='width:300px' value='0'/> (INT) </td></tr>
   <tr><td>KEY : <input type='text' name='paramKey' value='content'/> VALUE : <input type='text' name='paramVal' style='width:300px' value=''''/> (STRING) </td></tr>
   <tr><td>KEY : <input type='text' name='paramKey' value='name'/> VALUE : <input type='text' name='paramVal' style='width:300px' value=''''/> (STRING) </td></tr>
+  <tr><td>KEY : <input type='text' name='paramKey' value='name'/> VALUE : <input type='text' name='paramVal' style='width:300px' value=''''/> (STRING) </td></tr>
 </table>
 <div style="text-align:center;">
 <input type='button' class='doTest' value='submit' onclick="submitComment()"/>
@@ -107,6 +171,50 @@ add Comment
 </div>
 
 <hr style=" height:2px;border:none;border-top:2px dotted #185598;margin-top:80px;" />
+
+<body>
+<input type='hidden' id='action2' value='http://127.0.0.1:8003/camera/cameraZan'/>
+<input type='hidden' id='method2' value='post'/>
+<div id="container1">
+<div id="header">
+add zan for camera
+</div>
+<div id="kuang">
+<table>
+  <tr><td colspan=2>KEY : <input type='text' name='paramKey2' value='cameraId'/> VALUE : <input type='text' name='paramVal2' style='width:300px' value='0'/> (INT) </td></tr>
+</table>
+<div style="text-align:center;">
+<input type='button' class='doTest2' value='submit'/>
+</div>
+</div>
+<div id="con">
+<textarea id='result2'>hahah</textarea>
+</div>
+</div>
+
+<hr style=" height:2px;border:none;border-top:2px dotted #185598;margin-top:30px;" />
+
+<body>
+<input type='hidden' id='action3' value='http://127.0.0.1:8003/camera/cameraBuZan'/>
+<input type='hidden' id='method3' value='post'/>
+<div id="container1">
+<div id="header">
+add buzan for camera
+</div>
+<div id="kuang">
+<table>
+  <tr><td colspan=2>KEY : <input type='text' name='paramKey3' value='cameraId'/> VALUE : <input type='text' name='paramVal3' style='width:300px' value='0'/> (INT) </td></tr>
+</table>
+<div style="text-align:center;">
+<input type='button' class='doTest3' value='submit'/>
+</div>
+</div>
+<div id="con">
+<textarea id='result3'>hahah</textarea>
+</div>
+</div>
+
+<hr style=" height:2px;border:none;border-top:2px dotted #185598;margin-top:30px;" />
 
 <input type='hidden' id='action1' value='http://127.0.0.1:8003/customer/customerCreate'/>
 <input type='hidden' id='method1' value='post'/>

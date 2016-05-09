@@ -78,6 +78,7 @@ class CommentServer extends Demos_App_Server
 	 * @params customerId 0 INT
 	 * @params content '' STRING
 	 * @params name '' STRING
+	 * @params uptime '' STRING
 	 * @method post
 	 */
 	public function commentCreateAction ()
@@ -87,6 +88,7 @@ class CommentServer extends Demos_App_Server
 		$customerId = intval($this->param('customerId'));
 		$content = $this->param('content');
 		$name = $this->param('name');
+		$uptime = $this->param('uptime');
 		
 		
 		
@@ -95,7 +97,8 @@ class CommentServer extends Demos_App_Server
 				'cameraid'		=> $cameraId,	
 				'customerid'	=> $customerId,
 				'name'			=> $name,
-				'content'		=> $content
+				'content'		=> $content,
+				'uptime'		=> $uptime
 			));
 			$this->render('10000', 'Create comment ok');
 

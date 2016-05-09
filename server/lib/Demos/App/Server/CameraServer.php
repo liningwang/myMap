@@ -149,6 +149,27 @@ class CameraServer extends Demos_App_Server
 		$commentDao->delete($id,'cameraid');
 		$this->render('10000', 'get camera');
 	}
+		/**
+	 * ---------------------------------------------------------------------------------------------
+	 * > 接口说明：通过Id删除camera
+	 * <code>
+	 * URL地址：/camera/deleteCamera
+	 * 提交方式：POST
+	 * 参数#1：id，类型：INT，必须：YES，示例：1
+	 * </code>
+	 * ---------------------------------------------------------------------------------------------
+	 * @title  通过Id删除camera
+	 * @action /camera/gongGao
+	 * @method post
+	 */
+	public function gongGaoAction ()
+	{
+		$gongGao = array(
+					'title'	=> '注意',
+					'content'	=> '欢迎进入外地车地图');
+		$this->render('10000', 'get message from server',array(
+				'GongGao' => $gongGao));
+	}
 	/**
 	 * ---------------------------------------------------------------------------------------------
 	 * > 接口说明：发表微博接口

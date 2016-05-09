@@ -289,6 +289,10 @@ var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
 //var opts = {anchor: BMAP_ANCHOR_BOTTOM_LEFT }    
 map.addControl(new BMap.NavigationControl());  
 map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别  
+	function showInfo(e){
+		alert(e.point.lng + ", " + e.point.lat);
+	}
+map.addEventListener("click", showInfo);
 Nep.onclick=function()
 {
 	if(currentPage<SumPage)                                 //判断当前页数小于总页数
